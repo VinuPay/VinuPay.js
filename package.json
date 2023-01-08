@@ -1,0 +1,41 @@
+{
+  "type": "commonjs",
+  "dependencies": {
+    "bignumber.js": "^9.1.0",
+    "bip39": "^3.0.4",
+    "colors": "^1.4.0",
+    "web3-vite": "^1.0.7"
+  },
+  "name": "vinupay.js",
+  "version": "0.5.68",
+  "description": "VinuPay.js is a JavaScript/TypeScript library for VinuPay",
+  "main": "dist/main.js",
+  "offchain": "dist/offchain.js",
+  "scripts": {
+    "watch": "tsc --watch",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imalfect/VinuPay.js.git"
+  },
+  "keywords": [
+    "vinupay",
+    "payment",
+    "free",
+    "transactions",
+    "feeless",
+    "vita",
+    "inu"
+  ],
+  "author": "iMalFect",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/imalfect/VinuPay.js/issues"
+  },
+  "homepage": "https://github.com/imalfect/VinuPay.js#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "typescript": "^4.9.4"
+  }
+}
