@@ -4,3 +4,5 @@ node_modules
 lab.js
 .env
 LICENSE
+.github
+tsconfig.json
