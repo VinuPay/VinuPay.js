@@ -5,7 +5,6 @@ import BigNumber from "bignumber.js";
 import * as bip39 from 'bip39';
 import * as Errors from './classes';
 import colors from 'colors';
-import {InvalidSeedError} from "./classes";
 // ----
 const nullAddress = 'vite_0000000000000000000000000000000000000000a4f3a0cb58'
 const cAddr = 'vite_4d2e2175684f232a8e72fe78d0f16e210722b47a134de0ce53'
@@ -65,18 +64,19 @@ export interface ContractInfo {
 export default class VinuPay implements IVinuPay {
     seed: string;
     nodeUrl: string;
-    address: vite.Address;
+    address: vite.WalletMnemonics["mainAddress"];
     provider: vite.Client;
     contract: vite.Contract;
 
     constructor(key: string, nodeUrl: string, contractAddress : string = cAddr, contractAbi : any[] = cAbi) {
         if (!bip39.validateMnemonic(key)) {
-            throw new InvalidSeedError("Invalid seed");
+            throw new Errors.InvalidSeedError("Invalid seed");
         }
         this.seed = key;
         this.nodeUrl = nodeUrl;
-        this.address = new vite.Address(key);
+        this.address = new vite.WalletMnemonics(key).mainAddress;
         this.provider = new vite.Client(nodeUrl)
+        this.provider.flags.add(vite.ClientFlags.ContractResults)
         this.provider.request('ledger_getSnapshotChainHeight').then((block) => {
             if (block === null) {
                 throw new Errors.NodeError('Failed to connect to node');
@@ -258,7 +258,7 @@ export default class VinuPay implements IVinuPay {
             const result = await this.contract.get("getTransaction", [id])
             let tx = JSON.parse(JSON.stringify(result.raw[0])); // stupid ikr
             const height = await this.provider.request('ledger_getSnapshotChainHeight')
-            if (height > tx.expirationHeight) {
+            if (height > tx.expireBlock) {
                 tx.status = 2;
             }
             // Check whether the name exists

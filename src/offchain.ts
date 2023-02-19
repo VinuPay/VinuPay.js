@@ -3,6 +3,7 @@
 import * as vite from 'web3-vite'
 import * as Errors from './classes'
 import colors from 'colors'
+import {type} from "os";
 // ----
 const nullAddress = 'vite_0000000000000000000000000000000000000000a4f3a0cb58'
 const cAddr = 'vite_4d2e2175684f232a8e72fe78d0f16e210722b47a134de0ce53'
@@ -54,13 +55,14 @@ export default class VinuPay implements IVinuPay {
     constructor(nodeUrl: string, contractAddress : string = cAddr, contractAbi : any[] = cAbi) {
         this.nodeUrl = nodeUrl;
         this.provider = new vite.Client(nodeUrl)
+        this.provider.flags.add(vite.ClientFlags.ContractResults)
         this.provider.request('ledger_getSnapshotChainHeight').then((block) => {
             if (block === null) {
                 throw new Errors.NodeError('Failed to connect to node');
             }
             console.log(colors.green.bold(`Connected to node successfully! Current snapshot chain height is ${block}`));
         }); // In case of an incorrect URL it will throw Invalid JSON RPC response: null
-        this.contract = new vite.Contract(this.provider,contractAddress, contractAbi);
+        this.contract = new vite.Contract(this.provider,contractAddress, contractAbi)
     }
 
     // ------- Names (Getters) -------
@@ -235,7 +237,7 @@ export default class VinuPay implements IVinuPay {
             const result = await this.contract.get("getTransaction", [id])
             let tx = JSON.parse(JSON.stringify(result.raw[0])); // stupid ikr
             const height = await this.provider.request('ledger_getSnapshotChainHeight')
-            if (height > tx.expirationHeight) {
+            if (height > tx.expireBlock) {
                 tx.status = 2;
             }
             // Check whether the name exists
