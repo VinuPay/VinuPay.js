@@ -256,9 +256,9 @@ export default class VinuPay implements IVinuPay {
             id = id.toString();
             // Make an offchain call
             const result = await this.contract.get("getTransaction", [id])
-            let tx = JSON.parse(JSON.stringify(result.raw[0])); // stupid ikr
+            let tx = { ...result.raw[0] };
             const height = await this.provider.request('ledger_getSnapshotChainHeight')
-            if (height > tx.expireBlock) {
+            if (height > tx.expireBlock && tx.status !== "1") {
                 tx.status = 2;
             }
             // Check whether the name exists
