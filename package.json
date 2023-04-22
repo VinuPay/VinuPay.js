@@ -7,8 +7,8 @@
     "web3-vite": "^1.0.7"
   },
   "name": "vinupay.js",
-  "version": "0.5.77",
-  "description": "VinuPay.js is a JavaScript/TypeScript library for VinuPay",
+  "version": "0.6.0",
+  "description": "VinuPay.js is a JavaScript/TypeScript library for VinuPay. Now on mainnet!",
   "main": "dist/main.js",
   "offchain": "dist/offchain.js",
   "scripts": {
