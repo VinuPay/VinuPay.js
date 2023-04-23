@@ -45,7 +45,7 @@ Client.getRegisteredNamesCount().then((res) => {
 Pull requests are welcome on our [GitHub](https://github.com/VinuPay/VinuPay.js). For major changes, please open an issue first to discuss what you would like to change.
 
 ## Documentation 📚 (Work in Progress 🚧)
-Documentation for both VinuPay and VinuPay.js can be found [here](https://docs.pay.vinu.org).
+Documentation for both VinuPay and VinuPay.js can be found [here](https://docs.vinu.cash).
 ## Credits 🎩
 VinuPay.js is created by [iMalFect](https://github.com/imalfect/)
 ## License 📜
