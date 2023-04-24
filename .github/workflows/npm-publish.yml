@@ -17,7 +17,7 @@ jobs:
           node-version: 17
           registry-url: https://registry.npmjs.org/
       - name: Download Dependencies 📜
-        run: npm ci
+        run: npm install
       - name: Build 👷
         run: npm run build
       - name: Publish 📦
